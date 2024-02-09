@@ -43,7 +43,7 @@ describe("Inserimento carrello", () => {
 
 
 describe("Inseriment giftcard", () => {
-  
+
   const result = addGiftcard({
     tipologia: "cartacea",
     taglio: 50,
@@ -73,5 +73,28 @@ describe("Inseriment giftcard", () => {
       expect(ordine.listaGiftCards[i].tipologia !== ordine.listaGiftCards[i + 1].tipologia && ordine.listaGiftCards[i].taglio !== ordine.listaGiftCards[i + 1].taglio).toBe(true)
 
     }
+  })
+
+  describe("test di getAmount", () => {
+    newOrder({
+      nome: "Gabriele",
+      cognome: "Palezza",
+      codiceFiscale: "PLZGRL02H12F205H",
+      mail: "g.palezza@gmail.com"
+    });
+    addGiftcard({
+      tipologia: "cartacea",
+      taglio: 50,
+      quantità: 2
+    },)
+    addGiftcard({
+      tipologia: "cartacea",
+      taglio: 100,
+      quantità: 1
+    },)
+    const result = getAmount()
+    expect(result.imponibile).toBe(200)
+    expect(result.iva).toBe(44)
+    expect(result.imponibileIva).toBe(244)
   })
 })
