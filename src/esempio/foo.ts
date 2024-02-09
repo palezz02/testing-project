@@ -1,7 +1,7 @@
 /*export const sum
 = (...a: number[]) =>
   a.reduce((acc, val) => acc + val, 0);*/
-export type TypeIntestatario = {
+export type TypeOrdine = {
   nome: string,
   cognome: string,
   codiceFiscale: string,
@@ -16,8 +16,8 @@ export type TypeGiftCard = {
 }
 
 
-export const newOrder = ({ nome, cognome, codiceFiscale, mail }): TypeIntestatario => {
-  const ordine: TypeIntestatario = {
+export const newOrder = ({ nome, cognome, codiceFiscale, mail }): TypeOrdine => {
+  const ordine: TypeOrdine = {
     nome: nome,
     cognome: cognome,
     codiceFiscale: codiceFiscale,
