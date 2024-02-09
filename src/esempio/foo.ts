@@ -15,6 +15,12 @@ export type TypeGiftCard = {
   quantità: number
 }
 
+export type TypeAmount = {
+  imponibile: number,
+  iva: number,
+  imponibileIva: number
+}
+
 export const ordiniList: TypeOrdine[] = []
 
 export const newOrder = ({ nome, cognome, codiceFiscale, mail }): TypeOrdine => {
@@ -39,4 +45,26 @@ export const addGiftcard = ({ tipologia, taglio, quantità }: TypeGiftCard): Typ
   }
   ordine.listaGiftCards.push({ tipologia, taglio, quantità });
   return ordine
+}
+
+export const getAmount = (): TypeAmount => {
+  const ordine: TypeOrdine = ordiniList[ordiniList.length - 1];
+  let imponibile: number = 0
+  let iva: number = 0
+  let imponibileIva: number = 0
+  for (let i = 0; i < ordine.listaGiftCards.length; i++) {
+    imponibile = imponibile + (ordine.listaGiftCards[i].taglio * ordine.listaGiftCards[i].quantità)
+  }
+  iva = imponibile * 0.22
+  imponibileIva = imponibile + iva
+  const amount: TypeAmount = {
+    imponibile: imponibile,
+    iva: iva,
+    imponibileIva: imponibileIva
+  }
+  return amount
+}
+
+export const reset = (): void => {
+  ordiniList.length = 0;
 }
