@@ -1,4 +1,4 @@
-import { sum } from './foo';
+import { newOrder } from './foo';
 
 /*test('basic', () => {
   expect(sum()).toBe(0);
@@ -30,13 +30,13 @@ describe("Inserimento carrello", () => {
   })
   it("Controllo della validità del codice fiscale", () => {
     expect(
-      result.codiceFiscale.length = 15 &&
-      result.codiceFiscale.replace("/[^A-Z]/gi", "").length === 9 &&
+      result.codiceFiscale.length === 16 &&
+      (result.codiceFiscale.match(/[A-Z]/g) || []).length === 9 &&
       typeof result.codiceFiscale === 'string'
     ).toBe(true);
   })
   it("Controllo validità mail", () => {
-    expect(typeof result.mail).toContain("@")
+    expect(result.mail).toContain("@")
   })
 
 })
