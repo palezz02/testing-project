@@ -6,7 +6,7 @@ export type TypeOrdine = {
   cognome: string,
   codiceFiscale: string,
   mail: string,
-  listaGifCards: TypeGiftCard[]
+  listaGiftCards: TypeGiftCard[]
 }
 
 export type TypeGiftCard = {
@@ -15,6 +15,7 @@ export type TypeGiftCard = {
   quantità: number
 }
 
+export const ordiniList: TypeOrdine[] = []
 
 export const newOrder = ({ nome, cognome, codiceFiscale, mail }): TypeOrdine => {
   const ordine: TypeOrdine = {
@@ -22,7 +23,20 @@ export const newOrder = ({ nome, cognome, codiceFiscale, mail }): TypeOrdine => 
     cognome: cognome,
     codiceFiscale: codiceFiscale,
     mail: mail,
-    listaGifCards: []
+    listaGiftCards: []
   }
+  ordiniList.push(ordine)
+  return ordine
+}
+
+export const addGiftcard = ({ tipologia, taglio, quantità }: TypeGiftCard): TypeOrdine => {
+  const ordine: TypeOrdine = ordiniList[ordiniList.length - 1];
+  for (let i = 0; i < ordine.listaGiftCards.length - 1; i++) {
+    if (ordine.listaGiftCards[i].tipologia === tipologia && ordine.listaGiftCards[i].taglio === taglio) {
+      ordine.listaGiftCards[i].quantità === ordine.listaGiftCards[i].quantità + quantità;
+      return ordine
+    }
+  }
+  ordine.listaGiftCards.push({ tipologia, taglio, quantità });
   return ordine
 }

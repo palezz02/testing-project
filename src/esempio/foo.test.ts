@@ -1,4 +1,4 @@
-import { newOrder } from './foo';
+import { TypeOrdine, addGiftcard, newOrder, ordiniList } from './foo';
 
 /*test('basic', () => {
   expect(sum()).toBe(0);
@@ -43,25 +43,35 @@ describe("Inserimento carrello", () => {
 
 
 describe("Inseriment giftcard", () => {
+  
   const result = addGiftcard({
     tipologia: "cartacea",
     taglio: 50,
-    quantità: 3
-  })
+    quantità: 5
+  },)
+
+  const listaGiftCards = result.listaGiftCards[result.listaGiftCards.length - 1];
 
   it("Controllo giftcar", () => {
     expect(result && typeof result === 'object').toBe(true);
   })
 
   it("Controllo tipologia pagamento", () => {
-    expect(result.tipologia === 'cartacea' || result.tipologia === 'digitale').toBe(true);
+    expect(listaGiftCards.tipologia === 'cartacea' || listaGiftCards.tipologia === 'digitale').toBe(true);
   })
 
   it("Controllo taglio", () => {
-    expect(result.taglio===10 && result.taglio===20 && result.taglio===50 && result.taglio===100).toBe(true);
+    expect(listaGiftCards.taglio === 10 || listaGiftCards.taglio === 20 || listaGiftCards.taglio === 50 || listaGiftCards.taglio === 100).toBe(true);
   })
 
   it("Controllo quantità", () => {
-    expect(result.quantità > 0 && result.quantità < 100).toBe(true);
+    expect(listaGiftCards.quantità > 0 && listaGiftCards.quantità < 100).toBe(true);
+  })
+  it("controllo tagli uguali", () => {
+    const ordine: TypeOrdine = ordiniList[ordiniList.length - 1];
+    for (let i = 0; i < ordine.listaGiftCards.length - 1; i++) {
+      expect(ordine.listaGiftCards[i].tipologia !== ordine.listaGiftCards[i + 1].tipologia && ordine.listaGiftCards[i].taglio !== ordine.listaGiftCards[i + 1].taglio).toBe(true)
+
+    }
   })
 })
